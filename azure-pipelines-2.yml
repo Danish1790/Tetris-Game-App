@@ -20,7 +20,7 @@ variables:
   #vmImageName: 'ubuntu-latest'
 
 pool:
-  name: Azure VM SS
+  name: azvmss
 
 stages:
 - stage: Build
