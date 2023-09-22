@@ -10,17 +10,14 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '75ac5cc0-7374-4e7b-b5f9-1d3735147651'
+  dockerRegistryServiceConnection: 'ed1c7a6c-6aa1-422b-99e2-0b9112a4b909'
   imageRepository: 'tetrisgameapp'
   containerRegistry: 'mycr79.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
-  # Agent VM image name
-  #vmImageName: 'ubuntu-latest'
-
-pool:
-  name: azvmss
+  # Agent pool name (replace with your VMSS agent pool name)
+  agentPoolName: 'vmss'  # Replace 'vmss' with your agent pool name
 
 stages:
 - stage: Build
@@ -29,7 +26,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImageName)
+      name: $(agentPoolName)  # Use the agent pool name
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -40,3 +37,8 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+
+
+
+
